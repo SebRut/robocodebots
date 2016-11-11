@@ -18,9 +18,9 @@ public class BasedBot extends Robot
 	// Robot main loop
 	while(true) {
 	    ahead(100);
-	    scan();
-	    turnRadarRight(180);
-	    turnRight(10);
+	    setAdjustRadarForGunTurn(true);
+	    turnRadarRight(45);
+	    turnRight(15);
 	}
     }
 
@@ -30,6 +30,7 @@ public class BasedBot extends Robot
     public void onScannedRobot(ScannedRobotEvent e) {
 	// Replace the next line with any behavior you would like
 	fireAtAngle(e.getBearing(), e.getDistance());
+	turnRadarLeft(30);
     }
 
     /**
@@ -37,18 +38,18 @@ public class BasedBot extends Robot
      */
     public void onHitByBullet(HitByBulletEvent e) {
 	// Replace the next line with any behavior you would like
-	back(25);
+	back(50);
     }
 
     public void onHitRobot(HitRobotEvent e) {
-	fireAtAngle(e.getBearing(), 300);
+	fireAtAngle(e.getBearing(), 0);
 
 	if(getEnergy() > e.getEnergy()) {
 	    turnRight(e.getBearing());
-	    back(10);
-	    ahead(20);
+	    back(50);
+	    ahead(50);
 	} else {
-	    back(20);
+	    back(100);
 	    turnRight(180);
 	}
     }
@@ -63,11 +64,11 @@ public class BasedBot extends Robot
     }
 
     public void fireAtAngle(double bearing) {
-	fireAtAngle(bearing, 100);
+	fireAtAngle(bearing, 1200);
     }
     public void fireAtAngle(double bearing, double distance) {
 	turnGunRight(bearing);
-	fire(distance/100);
+	fire(1200/distance);
 	turnGunLeft(bearing);
     }	
 }
